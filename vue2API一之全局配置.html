@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>vue2全局配置</title>
+	<script src="vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		{{name}}
+	</div>
+</body>
+	<script>
+		// Vue.config是一个对象,包含Vue的全局配置,可以在修改应用时修改它的属性
+		console.log(Vue.config);
+		// 1.silent 属性 属性值为boolean类型 默认false
+		 // Vue.config.silent=true;   //取消Vue所有的日志与警告  浏览器不会报name is not defined的错
+		 //2.optionMergeStrategies 自定义合并策略的选项 (有待继续研究)
+		 // 3.devtools 是否开发模式  配置是否允许vue-devtools检查代码 开发版默认为true 生产版默认为false 生产版设为true可以启用检查
+		 // 4. errorHandler c错误处理器   类型function 默认值undefiend 
+		 	// 用法：Vue.config。erroeHandler=function(err,vm,info){
+		 		// handle error
+		 		// info 是Vue特定的错误信息,比如错误所在的生命周期钩子
+		 		// 只在2.2+可用
+		 	// }
+		 // 5 warnHandler 警告处理器
+		 // 6. keyCodes 自定义键位别名
+		 // 7.productionTip 新增  设置为false 以阻止vue在启动时生成生产提示
+		new Vue({
+			el:"#app",
+			data:{
+
+			}
+		})
+	</script>
+</html>
