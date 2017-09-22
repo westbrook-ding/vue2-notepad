@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>动态组件</title>
+	<script src="vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		<!-- 通过is去判断 -->
+		<component v-bind:is="currentView"></component>
+		<button @click="change">切换至mine组件</button>
+	</div>
+</body>
+	<script>
+		new Vue({
+			el:"#app",
+			data:{
+				currentView:'home'
+			},
+			methods:{
+				change:function(){
+					this.currentView="mine";
+				}
+			},
+			components:{
+				home:{
+					template:`<div><h2>我是home组件</h2></div>`
+				},
+				mine:{
+					template:`<div><h2>我是mine组件</h2></div>`
+				},
+				cart:{
+					template:`<div><h2>我是cart组件</h2></div>`
+				}
+			}
+		})
+	</script>
+</html>

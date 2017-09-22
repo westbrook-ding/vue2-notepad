@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>props的用法</title>
+	<script src="vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		<!-- props传递多个属性 可以通过传递一个对象toDo  v-bind不绑定任何属性-->
+		<child v-bind="toDo"></child>  
+		<!-- 上面这行代码等价于：
+			<child v-bind:learn="toDo.learn" v-bind:isOver="toDo.isOver"></child>
+		 -->
+	</div>
+	<pre style="font-size:20px;color:red;">
+		注意：props是单向传递的  js中数组和对象是应用类型的,指向同一块内存空间 
+		      当prop为数组或对象时可以改变父组件的状态
+	</pre>
+</body>
+	<script>
+		var child={
+			template:`<div>
+			<h3>我是子组件</h3>
+			<p>{{learn}}</p>
+			<p>{{isOver}}</p>
+			</div>`,
+			props:['learn','isOver']
+		}
+		new Vue({
+			el:"#app",
+			data:{
+				toDo:{
+					learn:"learn vue",
+					isOver:false
+				}
+			},
+			components:{
+				child:child
+			}
+		})
+	</script>
+</html>

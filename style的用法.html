@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>style的用法</title>
+	<script src="vue.js"></script>
+</head>
+<body>
+	<div id="app">
+	<!-- 类似css的语法 -->
+	<!-- 1. 对象 {css属性1:数据1,css属性2:数据2} -->
+		<h2 :style="{color:b,fontSize:fontSize}">我是h2标题</h2>
+	<!-- 2 数据对象 包含css  {css属性1:属性值1,css属性2:属性值2} -->
+		<div :style="styleData">我是div</div>
+	<!-- 3 数组语法 绑定多个样式对象 -->
+		<h3 :style="[styleData,cssData]">我是h3标题</h3>
+	<!-- 4 从2.3开始style中属性可以绑定多个属性值 针对浏览器兼容 浏览器会渲染最终支持的那一个-->
+		<!-- <div :style="{display:['-webkit-box','ms-flexbox','flex']}">我是div</div> -->
+	</div>
+</body>
+	<script>
+		new Vue({
+			el:"#app",
+			data:{
+				styleData:{
+					color:"red",
+					backgroundColor:"yellow"
+				},
+				cssData:{
+				  fontSize:"100px",
+				  border:"1px solid #000"
+				},
+				b:"blue",
+				fontSize:"40px"
+			}
+		})
+	</script>
+</html>

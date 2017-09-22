@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>计算属性</title>
+	<script src="vue.js"></script>
+</head>
+<body>
+	 <div id="example">
+	 	<p>original message:"{{message}}"</p>
+	 	<p>Computed reversed message:"{{reversedMessage()}}"</p>
+	 	<button @click="change">改变message的值</button>
+	 	<p>{{first}}</p>
+	 	<p>{{last}}</p>
+	 	<p>{{full}}</p>
+	 	{{all}}{{l}}
+	 </div>
+</body>
+	<script>
+		// 模板内表达式 只适用于简单的表达式  太多逻辑会让模板过重难以维护  对于复杂的逻辑使用计算属性 一个属性跟随另一个属性变化时
+		// 为什么要使用计算属性  
+		//  因为计算属性是基于他们的依赖进行缓存的  只有当他的依赖变化时才去执行getter函数 而方法的方式每次都要执行函数       当有一个计算属性B 依赖计算属性A时  A 里面有需要遍历大数组或大量的计算  A 可以缓存  如果不要缓存 可以使用方法
+		// computed与watch watch是命令式的和重复的   computed更好   watch可以做一些异步操作或开销较大的操作
+		var vm=new Vue({
+			el:"#example",
+			data:{
+				message:"hello",
+				first:"张",
+				last:"三",
+				all:"赵",
+				l:"云"
+			},
+			computed:{
+				// computed默认只有getter
+				reversedMessage:function(){
+					return this.message.split("").reverse().join("");
+				},
+				// 根据需要可以设置setter
+				full:{
+					get:function(){
+						return this.first+this.last;
+					},
+					set:function(newValue){
+						this.all=newValue.substr(0,1);
+						this.l=newValue.substr(1,1);
+					}
+				}
+			},
+			// 定义成方法也可以 
+			methods:{
+				reversedMessage:function(){
+					return this.message.split("").reverse().join("");
+				},
+				change:function(){
+					this.message="world!"
+				}
+			}
+		})
+		vm.full="李四";
+	</script>
+</html>

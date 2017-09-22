@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>条件渲染</title>
+	<script src="vue.js"></script>
+</head>
+<body>
+	<div id="app">
+	<!-- v-else 必须跟在v-if和v-else-if后面 -->
+		<div v-if="type=='a'">我是a</div>
+		<!-- 2.1.0新增  v-else-if -->
+		<div v-else-if="type=='b'">我是b</div>
+		<div v-else>我是c</div>
+		<button v-for="(item,index) in num" @click="change(index)">{{item}}</button>
+
+		<!-- 相同元素的复用 -->
+		<!-- <template v-if="loginType === 'username'">
+			<label>Username</label>
+			<input placeholder="Enter your username">
+		</template>
+		<template v-else>
+  			<label>Email</label>
+ 		 	<input placeholder="Enter your email address">
+		</template> -->
+
+		<!-- 通过key使他们独立 -->
+		<!-- <template v-if="loginType === 'username'">
+		  <label>Username</label>
+		  <input placeholder="Enter your username" key="username-input">
+		</template>
+		<template v-else>
+ 		 <label>Email</label>
+ 		 <input placeholder="Enter your email address" key="email-input">
+		</template> -->
+
+		<!--注意: v-if 有更高的切换开销  v-show具有更高的初始渲染开销 用于频繁的切换      
+			v-for 与v-if同时使用时 v-for具有更高的优先级
+ 		-->
+		
+		<!-- v-for 和v-if的配合使用 -->
+ 		<!-- <li v-for="todo in todos" v-if="!todo.isComplete">
+  				{{ todo }}
+		</li> -->
+		
+ 		<!-- // 对象遍历key
+ 			<div v-for="(value,key,index) in object"></div>
+ 			// 数组 var arr=[{key:0},{key:1},{key:2}];
+ 			<div v-for="(item,index) in items">{{item.key}}</div>
+ 		 -->
+
+ 		 <!--2.2.0版本 组件的v-for 必需带key-->
+	</div>
+</body>
+	<script>
+		new Vue({
+			el:'#app',
+			data:{
+				type:"a",
+				num:["a","b","c"]
+			},
+			methods:{
+				change:function(idx){
+					if(idx==0){
+						this.type="a"
+					} else if(idx==1){
+						this.type="b"
+					} else{
+						this.type="c"
+					}
+				}
+			}
+		})
+	</script>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>具名插槽slot</title>
+	<script src="vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		<h2>我是父组件</h2>
+		<child>
+			<h3 slot="header">我是父组件插槽header</h3>
+			<p>我是父组件的段落1</p>
+			<p>我是父组件的段落2</p>
+			<h4 slot="footer">我是父组件的插槽footer</h4>
+		</child>
+	</div>
+</body>
+	<script>
+		//组合组件时,内容分发API是非常有用的机制
+		Vue.component('child',{
+			template:`<div>
+				<div class="header"><slot name="header"></slot></div>
+				<div class="main"><slot></slot></div>
+				<h2>我是子组件</h2>
+				<div class="footer"><slot name="footer"></slot></div>
+			</div>`
+		})
+		new Vue({
+			el:"#app",
+			data:{
+
+			}
+		})
+	</script>
+</html>

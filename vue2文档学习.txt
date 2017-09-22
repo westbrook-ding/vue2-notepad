@@ -1,0 +1,88 @@
+一.vue的一些概念：
+	完整版：同时包含编译器和运行时的构建
+	编译器：将模板字符串编译成javascript渲染函数代码
+	运行时：用来创建Vue实例,渲染并处理virtual DOM等行为的代码。基本上就是除去编译器的其他一切
+	vue-loader:将.vue文件内部的模板在构建时预编译成javascript,最终打包不需要编译器,运行时构建即可 运行时构建比完整版构建缩减了30%的体积
+
+	vue是一套构建用户界面的渐进式框架 应用类型可以抽象为一个组件树
+	new Vue({}) 根实例  每一个组件都是一个Vue实例
+
+	实例的生命周期：
+	  注意:不要在选项属性或回调上使用箭头函数 
+	  如 created: () => console.log(this.a) 或 vm.$watch('a', newValue => this.myMethod())  箭头函数this指向父级
+
+	模板语法：对可信内容提供html插值 不可对用户提供的内容进行html插值 避免xss攻击  使用javascript表达式 三目运算单个表达式  不支持if语句
+
+	指令：v-for  不加key就地复用不会按顺序重排,有利于性能的提升  加key会按顺序重排
+
+	数组的变异方法：改变原数组并且触发视图更新的方法 如 push(),pop(),shift(),unshift(),splice(),sort(),reverse()
+	  非变异的方法：不改变原数组,返回新的数组,需用新数组替换旧数组 如:filter(),concat()和slice()
+
+	  通过数组的下标去设置值可触发视图的更新   Vue.set(example.items,indexOfItem,newValue) 或 example.items.splice(indexOfItem,,1,newValue)
+
+	  通过Vue.set设置data中对象的属性值
+	  Vue.set(vm.userData,'age',27) 或vm.$set 设置  this.$set(this.userData,"age",27)
+	  设置对象的多个属性
+	  this.userData=Object.assign({},this.userData,{
+	  	age:27,
+	  	sex:"女"
+	  })
+
+	  事件处理：$event 
+	  事件修饰符：.stop 阻止冒泡         <a v-on:click.stop="doThis"></a>
+	  			  .prevent 阻止默认行为   
+	  			  .capture
+	  			  .once    .once还可用于自定义的组件事件上
+	  			  .self
+	  	     	 <!-- 修饰符可以串联 -->    <a v-on:click.stop.prevent="doThat"></a>
+	  	     	 <!-- 只有修饰符 -->        <form v-on:submit.prevent></form>
+	  	     	 <!-- 添加事件侦听器时使用事件捕获模式 -->  <div v-on:click.capture="doThis">...</div>
+	  	     	 <!-- 只当事件在该元素本身 (比如不是子元素) 触发时触发回调 -->  <div v-on:click.self="doThat">...</div>
+	  	     	 <!-- 点击事件将只会触发一次 --> <a v-on:click.once="doThis"></a>  
+
+	  键值修饰符：<input v-on:keyup.enter="submit">
+	  			 .enter
+	  			 .tab
+	  			 .delete (捕获"删除"和"退格"键)
+	  			 .esc
+	  			 .space
+	  			 .up
+	  			 .down
+	  			 .left
+	  			 .right
+	  			自定义键值修饰符别名
+	  			Vue.config.keyCodes.f1=112
+
+	  			2.1.0新增
+	  			 .ctrl
+	  			 .alt
+	  			 .shift
+	  			 .meta
+
+	  			 鼠标按钮修饰符
+	  			 .left
+	  			 .right
+	  			 .middle
+
+	  	表单的修饰符：.lazy:  <!-- 在 "change" 而不是 "input" 事件中更新 -->  <input v-model.lazy="msg" >
+	  				  .number <input v-model.number="age" type="number">  将字符串转化为数字  如果转化为NAN 则返回原值
+	  				  .trim 自动过滤用户输入的首尾空格
+
+	  	父子组件传值：父组件通过props传递给子组件  
+	  				 子组件  通过$emit 传递自定义事件  父组件在子组件身上通过v-on绑定一个函数  子组件只负责将事件传递过去 父组件关心不关心与他无关
+	  				 <child v-on:message="child-msg">我是子组件</child>
+
+	  	在组件的根元素上绑定一个原生事件  .native修饰符  <my-component v-on:click.native="dosomething">我是组件</my-component>
+
+	  	定制组件的v-model(没看懂)
+
+	  	keep-alive 包裹组件可以缓存组件 
+	  	<keep-alive>
+		  <component :is="currentView">
+		    <!-- 非活动组件将被缓存！ -->
+		  </component>
+		</keep-alive>
+
+		
+
+	 http://www.jb51.net/article/118792.htm ie11空白

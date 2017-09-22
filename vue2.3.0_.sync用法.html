@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>.sync的用法</title>
+	<script src="vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		<h1>我是父组件</h1>
+		<p>{{name}}</p>
+		<button @click="change">点击改变name的值</button>
+		<child :cname.sync="name"></child>
+	</div>
+</body>
+	<script>
+		Vue.component("child",{
+			template:`<div>
+				<h2>我是子组件</h2>
+				<p>{{cname}}</p>
+				<button @click="change">点击改变cname属性的值</button>
+			</div>`,
+			props:['cname'],
+			methods:{
+				change:function(){
+					this.cname="李四";
+					//手动触发cname属性更新 同时父组件name属性会同步更新 这样父子组件实现了双向绑定
+					this.$emit("update:cname",this.cname);
+				}
+			}
+		})
+		new Vue({
+			el:"#app",
+			data:{
+				name:"张三"
+			},
+			methods:{
+				change:function(){
+					this.name="王五"
+				}
+			}
+		})
+	</script>
+</html>

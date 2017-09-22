@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>class的用法</title>
+	<style>
+		.red{
+			background-color:red;
+		}
+		.big{
+			font-size: 50px;
+		}
+		.blue{
+			background-color: blue;
+		}
+		.color{
+			color:red;
+		}
+	</style>
+	<script src="vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		<h2 :class="{red:isRed,big:isBig}">我是h2标题</h2>
+		<h3 :class="styleData">我是h3标题</h3>
+		<button @click="changeColor">点击切换颜色</button>
+	</div>
+</body>
+	<script>
+		//1.对象语法：:class="{class1:bool1,class2:bool2}" 可以设置多个样式  直接绑定一个对象数据  也可以绑定一个计算属性 中的对象   三元运算  数组
+		new Vue({
+			el:"#app",
+			data:{
+			 isRed:false,
+			 isBig:false,
+			 styleData:{
+			 	"blue":true,
+			 	'color':true
+			 }
+			},
+			methods:{
+				changeColor:function(){
+					this.isRed=!this.isRed;
+					this.isBig=!this.isBig;
+				}
+			}
+		})
+		// 数组  style: active{} text-danger{}
+ 		// <div v-bind:class="[activeClass, errorClass]"></div>
+		// data: {
+		//   activeClass: 'active',
+		//   errorClass: 'text-danger'
+		// }
+
+		// 三目运算
+		// <div v-bind:class="[isActive ? activeClass : '', errorClass]"></div>
+
+		//在组件上
+		// Vue.component('my-component', {
+		// 	 template: '<p class="foo bar">Hi</p>'
+		// })
+		// <my-component class="baz boo"></my-component>
+		// <p class="foo bar baz boo">Hi</p>
+		// 同样适用 HTML的class <my-component v-bind:class="{ active: isActive }"></my-component>
+
+	</script>
+</html>

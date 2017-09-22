@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>props验证</title>
+	<script src="vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		
+	</div>
+</body>
+	<script>
+		// props使用对象的方法  属性:类型  不能使用字符串数组的形式
+		// type可以是下面原生构造器:
+			// String 、Number、Boolean、Function、Object、Array、Symbol type 也可以是一个自定义构造器函数，使用 instanceof 检测。props验证失败 会抛出警告 props验证在实例创建之前 所以data methods computed的属性都无法使用
+		// 第三方组件 可以直接在组件上定义属性  不需要  通过props 如下：  data-3d-date-picker属性会自动添加到bs-datae-input 组件的根元素上
+		// <bs-date-input data-3d-date-picker="true"></bs-date-input>  
+		Vue.component('example',{
+			props:{
+				// 数字类型
+				propA:Number,
+				// 多种类型
+				propB:[String,Number],
+				// 必传且是字符串
+				propC:{
+					type:String,
+					required:true
+				},
+				// 数字,有默认值
+				propD:{
+					type:Number,
+					default:100
+				},
+				// 数组/对象的默认值应当由一个工厂函数返回
+				propE:{
+					type:object,
+					default:function(){
+						return {message:"hello"}
+					}
+				},
+				// 自定义一个验证函数
+				propsF:{
+					validator:function(value){
+						return value>10;
+					}
+				}
+
+			}
+		})
+		new Vue({
+			el:"#app",
+			data:{
+
+			}
+		})
+	</script>
+</html>
